@@ -6,12 +6,11 @@ from pythainlp import word_tokenize
 from pythainlp.corpus import thai_stopwords
 import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn import model_selection, train_test_split, preprocessing, linear_model, naive_bayes, metrics, svm
+from sklearn.model_selection import train_test_split
+from sklearn import model_selection, preprocessing, linear_model, naive_bayes, metrics, svm
 from sklearn.naive_bayes import BernoulliNB, ComplementNB, MultinomialNB
 from sklearn.metrics import accuracy_score, precision_score, confusion_matrix, classification_report
 import time
-
-#############################################################
 
 def clean(ls_sms):
     temp = []
@@ -41,8 +40,6 @@ def remove_stop(temp, added_stop):
     ls_sms = temp3
     return ls_sms
 
-#############################################################
-
 # Prepare data
 # Import data
 data = pd.read_csv("sms2.csv", encoding = "utf-8")
@@ -54,22 +51,7 @@ print()
 
 # Clean text
 data['sms'] = clean(data['sms'])
-# Print sample
-# print()
-# print("+"*10 ,"Sample Cleansing Data", "+"*10)
-# print(data.head())
-# print()
-
-# Text tokenize
 token = token(data['sms'])
-# Print sample
-# print()
-# print("+"*10 ,"Sample Token", "+"*10)
-# for i in token[:5]:
-#     print(i)
-# print()
-
-# Remove stop word
 added_stop = ["สวัสดี", "เฉพาะ", "คุณ", "มค", "กพ", "มีค", "เมย", "พค", "มิย", "กค", "สค", "กย", "ตค", "พย", "ธค"]
 data['sms'] = remove_stop(token, added_stop)
 
@@ -85,8 +67,6 @@ tfidf_vect.fit(data["sms"])
 xtrain_tfidf = tfidf_vect.transform(train_x)
 xvalid_tfidf = tfidf_vect.transform(valid_x)
 xtrain_tfidf.data
-
-#############################################################################
 
 # Training & testing algorithm
 # MultinomialNB, MultinomialNB, and ComplementNB with alpha = 1.0, 0.1, 0.01, and 0.001 
