@@ -41,18 +41,6 @@ def remove_stop(temp, added_stop):
     ls_sms = temp3
     return ls_sms
 
-def train(classifier, xtrain_tfidf, train_y, xvalid_tfidf, valid_y):
-    start = time.time()
-    classifier.fit(xtrain_tfidf, train_y)
-    pred_y = classifier.predict(xvalid_tfidf)
-    end = time.time()
-    accuracy = metrics.accuracy_score(pred_y, valid_y)
-    precision = metrics.precision_score(pred_y, valid_y)
-    recall = metrics.recall_score(pred_y, valid_y)
-    confusion = metrics.confusion_matrix(pred_y, valid_y)
-    class_report = metrics.classification_report(pred_y, valid_y)
-    return accuracy, precision, recall, confusion, class_report, start, end
-
 #############################################################
 
 # Prepare data
